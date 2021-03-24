@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>R42 event things setup</title>
+  <script type="text/javascript" src="https://www.static-kl.com/assets/cookie-banner/cookie-banner.js"></script>
+  <script>
+    window.uses_own_tracking_banner=true;
+    window.BWCookieBanner.setup('KL', 'en');
+    window.BWCookieBanner.openAutomatically();
+  </script>
+  <script>
+  function manuallyKickoffRelay() {
+    (function (a, d, e, b, f, c, s) {
+    a[b] =
+      a[b] ||
+      function () {
+        a[b].q.push(arguments);
+      };
+    a[b].q = [];
+    c = d.createElement(e);
+    c.async = 1;
+    c.src = '//tdn.r42tag.com/lib/' + f + '.js';
+    s = d.getElementsByTagName(e)[0];
+
+    a[b]('addInitCallback', function() {
+      if(window.uses_own_tracking_banner) {
+        console.log(window.will_it_chug)
+        k=document.cookie.split(';').map(pEntry=>pEntry.trimStart()).reduce((pAll, pEntry)=>{const lKVAry = pEntry.split('='); pAll[lKVAry[0]]=lKVAry[1]; return pAll }, {})
+        console.dir(k.bw_cookie_banner)
+      }
+    });
+
+    function createCustomEvent(event, params) {
+      var p = params || { bubbles: false, cancelable: false, detail: undefined };
+
+      if (typeof window.CustomEvent === 'function') {
+        return new CustomEvent(event, p);
+      }
+
+      var evt = document.createEvent('CustomEvent');
+      evt.initCustomEvent( event, params.bubbles, params.cancelable, params.detail );
+      return evt;
+    }
+
+    c.addEventListener('load', function() {
+      var _ge = createCustomEvent('gtm_loaded', { bubbles: true });
+      d.dispatchEvent(_ge);
+    });
+
+    s.parentNode.insertBefore(c, s);
+  })(window, document, 'script', '_st', '135-v1')
+  }
+
+  </script>
+</head>
+<body>
+  <h1>r42: slow loading emulation</h1>
+  <p>To emulate relay42 loading only later (e.g. due to inexplicable latency), click the <em>kick off relay</em> button below after accepting cookies</p>
+  <button onclick="manuallyKickoffRelay()">kick off relay</button>
+  <button onclick="_st.cookiepermission.setCookiePreferences({});_st.core.executeTags();document.cookie='bw_cookie_banner={}'">reset relay & KL preference cookie</button>
+</body>
+</html>

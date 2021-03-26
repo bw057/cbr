@@ -7,12 +7,18 @@
     <title>R42 event things setup</title>
     <script type="text/javascript" src="./cookie-banner.js"></script>
     <script>
-        window.uses_own_tracking_banner = true;
-        window.BWCookieBanner.setup("KL", "no", "no");
-        window.BWCookieBanner.openAutomatically();
+      window.uses_own_tracking_banner = true;
+      var url = new URL(document.location);
+
+      window.BWCookieBanner.setup(
+        url.searchParams.get("brand") || "AF",
+        url.searchParams.get("language") || "zh-CN",
+        url.searchParams.get("country") || "fr"
+      );
+      window.BWCookieBanner.openAutomatically();
     </script>
     <script>
-        (function (a, d, e, b, f, c, s) {
+      (function (a, d, e, b, f, c, s) {
         a[b] =
           a[b] ||
           function () {
@@ -53,7 +59,7 @@
         s.parentNode.insertBefore(c, s);
       })(window, document, "script", "_st", "135-v1");
       
-      // for this site, to test - typically this happens automatically
+      // for this site, to test - typically loadTags happens automatically
       window._st.core.loadTags()
     </script>
   </head>

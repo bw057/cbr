@@ -22,7 +22,7 @@
           url.searchParams.get("country") || "fr"
         );
       }
-      window.BWCookieBanner.openAutomatically();
+//       window.BWCookieBanner.openAutomatically();
     </script>
   <script>
   function manuallyKickoffRelay() {
@@ -75,5 +75,6 @@
   <button onclick="manuallyKickoffRelay()">kick off relay</button>
   <button onclick="_st.cookiepermission.setCookiePreferences({});_st.core.executeTags();document.cookie='bw_cookie_banner={}'">reset relay & KL preference cookie</button>
   <button onclick="window.BWCookieBanner.openManually()">update bannert</button>
+  <script type="text/javascript" src="./testthing.js"></script>
 </body>
 </html>

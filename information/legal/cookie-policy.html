@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>R42 event things setup</title>
+    <script type="text/javascript" src="https://www.static-kl.com/assets/cookie-banner/cookie-banner.js"></script>
+    <script>
+      window.uses_own_tracking_banner = true;
+
+      // just a test page, so this sketchy userAgent to demo it actually works on IE11
+      // is sorta tolerable
+      if (navigator.userAgent.match(/Trident/g)) {
+        window.BWCookieBanner.setup("AF", "zh-CN", "fr");
+      } else {
+        var url = new URL(document.location);
+
+        window.BWCookieBanner.setup(
+          url.searchParams.get("brand") || "AF",
+          url.searchParams.get("language") || "zh-CN",
+          url.searchParams.get("country") || "fr"
+        );
+      }
+      window.BWCookieBanner.openAutomatically();
+    </script>
+    <script>
+      (function (a, d, e, b, f, c, s) {
+        a[b] =
+          a[b] ||
+          function () {
+            a[b].q.push(arguments);
+          };
+        a[b].q = [];
+        c = d.createElement(e);
+        c.async = 1;
+        c.src = "//tdn.r42tag.com/lib/" + f + ".js";
+        s = d.getElementsByTagName(e)[0];
+
+        function createCustomEvent(event, params) {
+          var p = params || {
+            bubbles: false,
+            cancelable: false,
+            detail: undefined,
+          };
+
+          if (typeof window.CustomEvent === "function") {
+            return new CustomEvent(event, p);
+          }
+
+          var evt = document.createEvent("CustomEvent");
+          evt.initCustomEvent(
+            event,
+            params.bubbles,
+            params.cancelable,
+            params.detail
+          );
+          return evt;
+        }
+
+        c.addEventListener("load", function () {
+          var _ge = createCustomEvent("gtm_loaded", { bubbles: true });
+          d.dispatchEvent(_ge);
+        });
+
+        s.parentNode.insertBefore(c, s);
+      })(window, document, "script", "_st", "135-v1");
+      
+      // for this site, to test - typically loadTags happens automatically
+     _st('loadTags') 
+    </script>
+  </head>
+  <body>
+    <h1>Cookie policy page - CBR doesn't appear of its own volition NL</h1>
+    <button
+      onclick="_st.cookiepermission.setCookiePreferences({});_st.core.executeTags();document.cookie='bw_cookie_banner={}'"
+    >
+      reset relay & KL preference cookie
+    </button>
+  </body>
+</html>
